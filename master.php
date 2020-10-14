@@ -19,6 +19,25 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
   <style>
+    html {
+      --scrollbarBG: #444444;
+      --thumbBG: #3c8dbc;
+    }
+
+    .messenger::-webkit-scrollbar {
+      width: 11px;
+    }
+
+    .messenger::-webkit-scrollbar-track {
+      background: var(--scrollbarBG);
+    }
+
+    .messenger::-webkit-scrollbar-thumb {
+      background-color: var(--thumbBG);
+      border-radius: 6px;
+      border: 3px solid var(--scrollbarBG);
+    }
+
     .messenger {
       overflow-y: auto;
       flex-grow: 1;
@@ -27,14 +46,16 @@
       padding: 0 1rem;
       max-width: 40vw;
       border-width: 10;
-      max-height: calc(80vh - 5.5rem);
+      max-height: 80vh;
+      scrollbar-width: thin;
+      scrollbar-color: var(--thumbBG) var(--scrollbarBG);
     }
 
     .messenger>ul {
       display: flex;
       flex-direction: column;
       list-style: none;
-      max-width: 40vw;
+      padding-left: 0px;
     }
 
     .messenger>ul>li {
@@ -44,22 +65,26 @@
       flex-direction: column;
       max-width: 25vw;
       border-radius: 20px;
-      box-shadow: 5px 5px 35px -30px rgba(0, 0, 0, 0.75);
+      background-color: #444444;
+      box-shadow: 5px 5px 35px -30px rgba(255, 255, 255, 0.75);
+      color: #ffffff;
     }
 
     .messenger>ul>li>small {
       margin-top: .5rem;
-      color: rgba(0, 0, 0, 0.4);
+      color: #ffffff;
     }
 
     .messenger>ul>li.me {
       align-self: flex-end;
-      background-color: rgba(202, 226, 251, 0.5);
+      background-color: #3c8dbc;
       position: relative;
+      color: #ffffff;
     }
 
     .messenger>ul>li.me>small {
       align-self: flex-end;
+      color: #ffffff;
     }
 
     .messenger>ul>li.me>small>span {
@@ -78,8 +103,9 @@
       right: .5rem;
     }
 
-    .messenger>ul>li>h2>button {
+    .messenger>ul>li>h4>button {
       background-color: transparent;
+      color: red;
       font-size: 20px;
       padding: 0;
       align-self: flex-end;
@@ -90,6 +116,18 @@
       margin: 0;
       display: inline;
       padding-right: .5rem;
+      font-size: 17px;
+    }
+
+    .messenger>ul>li.me>p {
+      margin: 0;
+      display: inline;
+      padding-right: 2rem;
+    }
+
+    .messenger>ul>li>h4 {
+      margin: 0;
+      display: inline-block;
     }
 
     form {
@@ -105,41 +143,49 @@
       padding: 1rem;
       background-color: rgb(255, 255, 255);
       color: black;
-      border: 1;
+      border: 0;
+      outline: none;
     }
 
-    form>input[type="submit"] {
-      padding: .3rem 5rem;
-      border: 1;
-      transition: background-color ease-in-out 150ms, color ease-in-out 150ms;
-      background-color: rgba(202, 226, 251, 0.5);
-      border-left: none;
+    .modal {
+      text-align: center;
+      padding: 0;
     }
 
-    form>input[type="submit"]:hover {
-      background-color: #3c8dbc;
-      color: white;
+    .modal:before {
+      content: '';
+      display: inline-block;
+      height: 100%;
+      vertical-align: middle;
+      margin-right: -4px;
+    }
+
+    .modal-dialog {
+      display: inline-block;
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    ::placeholder {
+      color: #ffffff;
+      opacity: .7;
     }
   </style>
 </head>
 
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini" OnLoad='document.getElementById("message_input").focus();'>
   <div class="wrapper">
     <!-- Main Header -->
     <header class="main-header">
       <!-- Logo -->
-      <a href="index.php" class="logo">
+      <a href="script.php" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
-        <span class="logo-mini">MSG</span>
         <!-- logo for regular state and mobile devices -->
         <span class="logo-lg">Messenger</span>
       </a>
       <!-- Header Navbar -->
       <nav class="navbar navbar-static-top" role="navigation">
         <!-- Sidebar toggle button-->
-        <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
-          <span class="sr-only">Toggle navigation</span>
-        </a>
         <!-- Navbar Right Menu -->
         <div class="navbar-custom-menu">
           <ul class="nav navbar-nav">
@@ -160,7 +206,7 @@
                   <img src="../dist/img/avatar5.png" class="img-circle" alt="User Image">
                   <p>
                     Matej Drha - Developer
-                    <small>Database IP adress: <?php echo $ipadress . ":" . $port ?></small>
+                    <small>Database IP adress: <?php echo $name . ":" . $port ?></small>
                   </p>
                 </li>
 
@@ -193,7 +239,7 @@
           <div class="pull-left info">
             <p><?php echo $name ?></p>
             <!-- Status -->
-            <a href=""><i class="fa fa-circle text-success"></i> Online</a>
+            <p style="font-size: 80%;"><i class="fa fa-circle text-success"></i> Online</p>
           </div>
         </div>
         <!-- search form (Optional) -->
@@ -230,93 +276,67 @@
       <!-- /.sidebar -->
     </aside>
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
+    <div class="content-wrapper" style="background-color: #222222;">
       <!-- Main content -->
-      <section class="content container-fluid">
-        <div class="row">
+      <section class="content container-fluid" style="padding-top: 5px; padding-bottom: 5px; background-color: #222222;">
+        <div class="row" style="background-color: #222222;">
           <div class="col-md-6" style="border-right: 1px solid #3c8dbc; margin: 0;">
-            <section class="content-header">
+            <section class="content-header" style="border-bottom: 1px solid #3c8dbc; margin: 0; padding: 0;">
+              <form class="search_class" method="POST" action="script.php" style="margin: 0;">
+                <img src="../dist/img/avatar5.png" class="img-circle" alt="User Image" width="40" height="40" style="padding: 5px;">
+                <span class="hidden-xs" style="padding: 10px; color: #ffffff;"><?php echo $name ?></span>
+                <p style="color: #ffffff; font-size: 90%; padding-top: 12px; padding-bottom: 12px; padding-right: 40px"><i class=" fa fa-circle text-success"></i> Online</p>
+                <input type="text" name="text" value="<?php echo $search_text ?>" placeholder="Search in messages..." id="message_search" autocomplete="off" style="color: #ffffff; background-color:#444444; margin-top: 5px; margin-bottom: 5px;"></input>
+                <span class="input-group-append" style="border: 0; margin: 5px; margin-right: 0;margin-left: 0; background-color: #444444; padding: 5px;">
+                  <div class=" input-group-text bg-transparent"><i class="fa fa-search" style="color: #ffffff; opacity: 0.7; font-size: 16px;"></i>
+                  </div>
+                </span>
+              </form>
 
-              <img src="../dist/img/avatar5.png" class="img-circle" alt="User Image" width="45" height="45">
 
-              <span class="hidden-xs"> <?php echo $ipadress ?></span>
-              <a href=""><i class="fa fa-circle text-success"></i> Online</a>
             </section>
+
             <div class="messenger">
-              <ul>
-                <li>
-                  <h3>Nazov cloveka</h3>
-                  <p>meesagd uihasdyuasgyuidsgay dgsau dweodfgweiofgwogf iufhuiowehuofhweauiph fuhweofgyawe ghufwhuilfhwerauiofhweyuof gheawuilofg hwaeyulogfyukawergfyuawe gfuilywegafuilwaegiofgduiwagfyuiogiuzxhfuidsjiopf hasuiph fouiasdh fiusdahfuiosdah
-                    fiusdhauifh sduioafh sduiopah fouidas hfuiopsdh uiofh asduiofhsdauipf hasipdofhjdiopas ufhipuasd fhuioasdhf uiopasdioufhiupsadhfui asdhuiofhsdauiof hsduioahfuioasdh fiouasd hfp uidsh uifhsdiufh asduip fhuipdas hfuipsdahpfi sdhapuifhasduip
-                    fhasduipfh ipusdahf uipasdhe</p>
-                  <small>7.10.2020 22:11</small>
-                </li>
-                <li>
-                  <h3>Nazov cloveka</h3>
-                  <p>meesage</p>
-                  <small>7.10.2020 22:11</small>
-                </li>
-                <li>
-                  <h3>Nazov cloveka</h3>
-                  <p>meesage</p>
-                  <small>7.10.2020 22:11</small>
-                </li>
-                <li>
-                  <h3>Nazov cloveka</h3>
-                  <p>meesage</p>
-                  <small>7.10.2020 22:11</small>
-                </li>
-                <li>
-                  <h3>Nazov cloveka</h3>
-                  <p>meesage</p>
-                  <small>7.10.2020 22:11</small>
-                </li>
-                <li class="me">
-                  <p>meesagdgyu asyudgas uidgsukagh asughdiuoash duihasuiohduioh asidu hasuiodhuioashduioashiodh asuiodhasiou dhouiashd iouasdoyu fyuwehfyotgefouwegoy GFYUOG
-                    EWYU FGYUWE GIFGQWEUIG FOYUWEG IOFUEWGUOFYGWEUIOG OYUGYUIOfg yuoh iuphioue<button class="btn"><i class="fa fa-trash"></i></button></p>
-                  <small>7.10.2020 22:11</small>
-                </li>
-                <li>
-                  <h3>Nazov cloveka</h3>
-                  <p>meesage</p>
-                  <small>7.10.2020 22:11</small>
-                </li>
-                <li>
-                  <h3>Nazov cloveka</h3>
-                  <p>meesage</p>
-                  <small>7.10.2020 22:11</small>
-                </li>
-                <li>
-                  <h3>Nazov cloveka</h3>
-                  <p>meesage</p>
-                  <small>7.10.2020 22:11</small>
-                </li>
-                <li>
-                  <h3>Nazov cloveka</h3>
-                  <p>meesage</p>
-                  <small>7.10.2020 22:11</small>
-                </li>
-                <li>
-                  <h3>Nazov cloveka</h3>
-                  <p>meesage</p>
-                  <small>7.10.2020 22:11</small>
-                </li>
-                <li>
-                  <h3>Nazov cloveka</h3>
-                  <p>meesage</p>
-                  <small>7.10.2020 22:11</small>
-                </li>
-                <li class="me">
-                  <h3>Nazov cloveka</h3>
-                  <p>meesage</p>
-                  <small><span>&#10003;&#10003;</span>7.10.2020 22:11</small>
-                </li>
-              </ul>
+              <?php
+              if (count($messages) != 0) {
+                echo "<ul>";
+                foreach ($messages as $m) {
+                  echo $m->get_html();
+                }
+                echo "</ul>";
+              }
+              ?>
+
+              <div class="modal fade" id="remove_dialog" role="dialog">
+                <div class="modal-dialog">
+
+                  <!-- Modal content-->
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h4 class="modal-title">Remove message?</h4>
+                    </div>
+                    <div class="modal-body">
+                      <p>Message will be removed for all users.</p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal" onclick="window.message_id_to_delete = '';">Dismiss</button>
+                      <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="remove_message(window.message_id_to_delete)">Remove</button>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
             </div>
 
-            <form action="" method="post">
-              <input type="text" name="message" placeholder="Type a message..." />
-              <input type="submit" value="Send" />
+            <form action="add_message.php" method="POST">
+              <input type="text" name="message" placeholder="Type a message..." id="message_input" autocomplete="off" style="background-color: #444444; color:#ffffff;" />
+              <input type="hidden" name="name" value="<?php echo $name ?>" />
+              <span class="input-group-append" aria-hidden="true" style="background-color: #444444; ">
+                <div class=" input-group-text bg-transparent"><i class="glyphicon glyphicon-send" style="font-size: 25px; padding: 8px; min-width: 50px; color: #3c8dbc; "></i>
+                </div>
+              </span>
             </form>
           </div>
           <div class="col-md-6">
@@ -328,7 +348,7 @@
     </div>
     <!-- /.content-wrapper -->
     <!-- Main Footer -->
-    <footer class="main-footer">
+    <footer class="main-footer" style="padding:5px; border: 0; background-color: #222d32; color: #ffffff; opacity: 0.7;">
       <!-- Default to the left -->
       <strong>Copyright &copy; 2020 Matej Drha</strong> All rights reserved.
     </footer>
@@ -336,6 +356,11 @@
   immediately after the control sidebar -->
     <div class="control-sidebar-bg"></div>
   </div>
+
+  <form style="display:none;" action="remove_message.php" method="POST" id="message-to-delete-form">
+    <input type="hidden" name="id" value="" id="message-to-delete" />
+  </form>
+
   <!-- ./wrapper -->
   <!-- REQUIRED JS SCRIPTS -->
   <!-- jQuery 3 -->
@@ -349,8 +374,15 @@
   <script src="../dist/js/adminlte.min.js"></script>
   <script>
     var objDiv = document.getElementsByClassName("messenger");
-    objDiv[0].scrollTop = objDiv[0].scrollHeight;;
+    objDiv[0].scrollTop = objDiv[0].scrollHeight;
+    window.message_id_to_delete = "";
+
+    function remove_message(id) {
+      document.getElementById('message-to-delete').value = id;
+      document.getElementById('message-to-delete-form').submit();
+    }
   </script>
+
 </body>
 
 </html>
