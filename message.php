@@ -1,34 +1,12 @@
 <?php
 class Message
 {
-    public $receiver_id;
     public $time;
     public $sender_name;
     public $message;
     public $delivered;
-    public $receiver_name;
     public $uuid;
     public $html;
-
-    function get_message()
-    {
-        return $this->message;
-    }
-
-    function get_time()
-    {
-        return $this->time;
-    }
-
-    function get_sender_name()
-    {
-        return $this->sender_name;
-    }
-
-    function get_delivered()
-    {
-        return $this->delivered;
-    }
 
     function build_html($name)
     {
