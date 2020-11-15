@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Messenger</title>
+  <title>Bike shop</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -65,90 +65,45 @@
     }
 
     .messenger>ul>li {
-      margin: 1rem 0;
-      padding: 1rem;
+      margin: 10px;
+      padding: 10px;
       display: flex;
       flex-direction: column;
-      max-width: 25vw;
       border-radius: 20px;
-      background-color: #444444;
+      background-color: #70a1bd;
       box-shadow: 5px 5px 35px -30px rgba(255, 255, 255, 0.75);
       color: #ffffff;
+      position: relative;
+    }
+
+    .messenger>ul>li.pointer {
+        cursor: pointer;
     }
 
     .messenger>ul>li>small {
       margin-top: .5rem;
+      font-size: 15px;
       color: #ffffff;
-      visibility: hidden;
     }
 
     .messenger>ul>li.me {
-      align-self: flex-end;
       background-color: #3c8dbc;
-      position: relative;
-      color: #ffffff;
     }
 
-    .messenger>ul>li.me>small {
-      align-self: flex-end;
-      color: #ffffff;
-      visibility: hidden;
-    }
-
-    .messenger>ul>li.me>small>span {
-      color: rgb(5, 144, 20);
-      margin-right: .75rem;
-      font-weight: bold;
-    }
-
-    .messenger>ul>li.me>p>button {
-      background-color: transparent;
-      color: red;
-      font-size: 20px;
-      padding: 0;
-      position: absolute;
-      top: .5rem;
-      right: .5rem;
-      visibility: hidden;
-    }
-
-    .messenger>ul>li.me:hover>p>button{
-      visibility: visible;
-    }
-
-    .messenger>ul>li:hover>h4>button{
-      visibility: visible;
-    }
-
-    .messenger>ul>li.me:hover>small{
-      visibility: visible;
-    }
-
-    .messenger>ul>li:hover>small{
-      visibility: visible;
-    }
 
     .messenger>ul>li>h4>button {
       background-color: transparent;
-      color: red;
-      font-size: 20px;
-      padding: 0;
-      align-self: flex-end;
-      float: right;
-      visibility: hidden;
+      color: white;
+      font-size: 30px;
+      position: absolute;
+      top: .5rem;
+      right: .5rem;
     }
 
-    .messenger>ul>li>p {
-      margin: 0;
-      display: inline;
-      padding-right: .5rem;
-      font-size: 17px;
-    }
-
-    .messenger>ul>li.me>p {
-      margin: 0;
-      display: inline;
-      padding-right: 2rem;
+    .messenger>ul>li>h4>button.edit {
+      font-size: 25px;
+      margin: 5px;
+      margin-right: 35px;
     }
 
     .messenger>ul>li>h4 {
@@ -171,6 +126,23 @@
       color: black;
       border: 0;
       outline: none;
+    }
+
+    .addbutton {
+      display: flex;
+      margin-top: 1rem;
+      flex-direction: row;
+      width: 100%;
+      height: 40px;
+      flex: 1 1 auto;
+      background-color:#3c8dbc;
+      text-align: center;
+      display: inline-block;
+      font-size: 25px;
+      color: white;
+      border: 0;
+      outline: none;
+      border-radius: 20px;
     }
 
     .modal {
@@ -197,15 +169,9 @@
       opacity: .7;
     }
 
-    .main-sidebar{
-      width: 20%;
-    }
 
-    .content-wrapper{
-      margin-left: 20%;
-    }
 
-    .contact-text{
+    .branch-text{
       padding: 14px; 
       font-size: 15px; 
       color: #ffffff; 
@@ -213,7 +179,7 @@
       overflow:hidden;
     }
 
-    .contact-p{
+    .branch-p{
       color: #ffffff; 
       font-size: 90%; 
       padding-top: 16px; 
@@ -221,153 +187,250 @@
       padding-right: 40px;
     }
 
+    .bike_text{
+      text-align: center; 
+      color: #ffffff;
+    }
+
+    .bike_price{
+      text-align: center; 
+      color: #ffffff;
+    }
+
   </style>
 </head>
 
-<body onload=getMessages() class="hold-transition skin-blue sidebar-mini">
+<body onload=getBikes() class="hold-transition skin-blue sidebar-mini">
   <div class="wrapper">
 
     <header class="main-header">
-      <a href="index.html" class="logo" style="width: 20%;">
-        <span class="logo-lg ">Messenger</span>
+      <a href="index.html" class="logo" style="width: 25%;">
+        <span class="logo-lg ">Bike shop</span>
       </a>
 
-      <nav class="navbar navbar-static-top" role="navigation" style="margin-left: 20%;">
+      <nav class="navbar navbar-static-top" role="navigation" style="margin-left: 25%;">
         <div class="navbar-custom-menu">
           <ul class="nav navbar-nav">
 
             <li class="dropdown user user-menu">
-              <a href="" class="dropdown-toggle" data-toggle="dropdown" style="background-color: #367fa9;">
-                <img src="../dist/img/avatar5.png" class="user-image" alt="User Image">
-                <span class="hidden-xs  nejakaklasa"></span>
-                <span class="hidden-xs  ip_adress"></span>
-                <span><i class=" fa fa-circle text-success" style="color: #32C12C;"></i>&nbsp&nbsp&nbsp&nbspOnline</span>
+              <a href="" class="dropdown-toggle" data-toggle="dropdown" style="background-color: #367fa9; padding: 1px;">
+                <img src="../dist/img/branch.png" alt="User Image" height="48px" width="48px">
+                <span class="hidden-xs  nejakaklasa" style="font-size: 20px; padding-left: 20px; margin-top:15px; margin-bottom:15px;"></span>
+                <span class="hidden-xs  ip_adress" style="font-size: 20px; margin-top:15px; margin-bottom:15px;"></span>
               </a>
             </li>
 
           </ul>
         </div>
       </nav>
+
     </header>
 
-    <aside class="main-sidebar">
-      <section class="sidebar">
-        <ul class="sidebar-menu" data-widget="tree"></ul>
-      </section>
-    </aside>
-
-    <div class="content-wrapper" style="background-color: #222222;">
-
-      <section class="content container-fluid" style="padding-top: 5px; padding-bottom: 5px; background-color: #222222;">
 
 
-          <section class="content-header" style="border-bottom: 1px solid #3c8dbc; margin: 0; padding: 0;">
-            <div class="search_class form" style="margin: 0; height: 50px;">
-              <img src="../dist/img/avatar6.png" class="img-circle" alt="User Image" width="45" height="45" style="padding: 5px;">
-              <span class="hidden-xs" style="padding: 12px; color: #ffffff;">Group chat</span>
-              <p style="color: #ffffff; font-size: 90%; padding-top: 14px; padding-bottom: 14px; padding-right: 40px"><i class=" fa fa-circle text-success"></i>&nbsp&nbsp&nbsp&nbspOnline</p>
-              <input type="text" name="text" value="" placeholder="Search in messages..." id="searchfield" autocomplete="off" style="color: #ffffff; background-color:#444444; margin-top: 5px; margin-bottom: 10px;"></input>
-              <span class="input-group-append" style="border: 0; margin-top: 5px; margin-bottom: 10px; background-color: #444444; padding: 7px;">
-                <div class=" input-group-text bg-transparent"><i class="fa fa-search" style="color: #ffffff; opacity: 0.7; font-size: 18px;"></i>
-                </div>
-              </span>
-            </div>
-          </section>
+    <div class="container-fluid row">
 
-          <div class="messenger">
-            <ul></ul>
+      <div class="col-sm-3" style="padding: 0px;">
+        <section class="sidebar">
+          <ul class="sidebar-menu" data-widget="tree"></ul>
+        </section>
+      </div>
 
-            <div class="modal fade" id="message_remove_dialog" role="dialog">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Remove message?</h4>
+      <div class="col-sm-6 " style="background-color: #222222; padding: 0px;">
+
+        <section class="content container-fluid" style="padding-top: 5px; padding-bottom: 5px; background-color: #222222;">
+
+
+            <section class="content-header" style="border-bottom: 1px solid #3c8dbc; margin: 0; padding: 0;">
+              <div class="search_class form" style="margin: 0; height: 50px;">
+                <img src="../dist/img/avatar6.png" class="img-circle" alt="User Image" width="49" height="49" style="padding-bottom: 1px;" >
+                <span class="hidden-xs" style="padding: 8px; color: #ffffff; font-size: 20px; margin-right: 20px; margin-left: 20px;">Company stock</span>
+                <input type="text" name="text" value="" placeholder="Search in bikes..." id="searchfield" autocomplete="off" style="color: #ffffff; background-color:#444444; margin-top: 5px; margin-bottom: 10px;"></input>
+                <span class="input-group-append" style="border: 0; margin-top: 5px; margin-bottom: 10px; background-color: #444444; padding: 7px;">
+                  <div class=" input-group-text bg-transparent"><i class="fa fa-search" style="color: #ffffff; opacity: 0.7; font-size: 18px;"></i>
                   </div>
-                  <div class="modal-body">
-                    <p>Message will be removed for all users.</p>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="window.message_id_to_delete = '';">Dismiss</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="remove_message(window.message_id_to_delete)">Remove</button>
-                  </div>
-                </div>
+                </span>
               </div>
-            </div>
+            </section>
 
-            <div class="modal fade" id="contact_remove_dialog" role="dialog">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Remove contact?</h4>
-                  </div>
-                  <div class="modal-body">
-                    <p>Contact will be removed from your contact list.</p>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="window.contact_id_to_delete = '';">Dismiss</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="remove_contact(window.contact_id_to_delete)">Remove</button>
+            <div class="messenger">
+              <ul></ul>
+
+              <div class="modal fade" id="bike_remove_dialog" role="dialog">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h4 class="modal-title">Remove bike?</h4>
+                    </div>
+                    <div class="modal-body">
+                      <p>Bike will be removed for all branches.</p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal" onclick="window.bike_id = '';">Dismiss</button>
+                      <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="remove_bike()">Remove</button>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div class="modal fade" id="fail_dialog" role="dialog">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Error adding contact!</h4>
-                  </div>
-                  <div class="modal-body">
-                    <p>Contact is not available. Be sure that IP adress is correct.</p>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" >OK</button>
+              <div class="modal fade" id="branch_remove_dialog" role="dialog">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h4 class="modal-title">Remove branch?</h4>
+                    </div>
+                    <div class="modal-body">
+                      <p>Branch will be removed from your branch list.</p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal" onclick="window.branch_id_to_delete = '';">Dismiss</button>
+                      <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="remove_branch(window.branch_id_to_delete)">Remove</button>
+                    </div>
                   </div>
                 </div>
               </div>
+
+              <div class="modal fade" id="fail_dialog" role="dialog">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h4 class="modal-title">Error adding branch!</h4>
+                    </div>
+                    <div class="modal-body">
+                      <p>Branch is not available. Be sure that IP adress is correct.</p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-primary" data-dismiss="modal" >OK</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="modal fade" id="add_branch_dialog" role="dialog">
+                <div class="modal-dialog">     
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h4 class="modal-title">Create new branch</h4>
+                    </div>
+                    <div class="modal-body">
+                      <label for="fname">IP address:</label><br>
+                      <input type="text" id="ip_address" name="ip_address"><br>
+                      <label for="lname">Address:</label><br>
+                      <input type="text" id="address" name="address">
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                      <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="add_branch()">Add branch</button>
+                    </div>
+                  </div>      
+                </div>
+              </div>
+
+              <div class="modal fade" id="bike_count_dialog" role="dialog">
+                <div class="modal-dialog">     
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h4 class="modal-title">Change bike count in my stock</h4>
+                    </div>
+                    <div class="input-group">
+                      <span class="input-group-btn">
+                    <button type="button" class="btn btn-default btn-number" data-type="minus" data-field="quant[1]">
+                        <span class="glyphicon glyphicon-minus"></span>
+                      </button>
+                      </span>
+                      <input id="bike_count" type="text" name="quant[1]" class="form-control input-number" value="" min="0" max="20">
+                      <span class="input-group-btn">
+                    <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="quant[1]">
+                        <span class="glyphicon glyphicon-plus"></span>
+                      </button>
+                      </span>
+                  </div>
+      
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                      <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="change_stock()">Change stock</button>
+                    </div>
+                  </div>      
+                </div>
+              </div>
+
+              <div class="modal fade" id="add_bike_dialog" role="dialog">
+                <div class="modal-dialog">     
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h4 class="modal-title">Create new bike entry</h4>
+                    </div>
+                    <div class="modal-body">
+                      <label for="fname">Brand:</label><br>
+                      <input type="text" id="brand" name="brand"><br>
+                      <label for="lname">Model:</label><br>
+                      <input type="text" id="model" name="model"><br>
+                      <label for="lname">Price:</label><br>
+                      <input type="text" id="price" name="price">
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                      <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="add_bike()">Add bike</button>
+                    </div>
+                  </div>      
+                </div>
+              </div>
+
+              <div class="modal fade" id="edit_bike_dialog" role="dialog">
+                <div class="modal-dialog">     
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h4 class="modal-title">Create new bike entry</h4>
+                    </div>
+                    <div class="modal-body">
+                      <label for="fname">Brand:</label><br>
+                      <input type="text" id="brand_edit" name="brand"><br>
+                      <label for="lname">Model:</label><br>
+                      <input type="text" id="model_edit" name="model"><br>
+                      <label for="lname">Price:</label><br>
+                      <input type="text" id="price_edit" name="price">
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                      <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="edit_bike()">Edit bike</button>
+                    </div>
+                  </div>      
+                </div>
+              </div>
+
             </div>
 
-            <div class="modal fade" id="add_contact_dialog" role="dialog">
-              <div class="modal-dialog">     
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Create new contact</h4>
-                  </div>
-                  <div class="modal-body">
-                    <label for="fname">IP address:</label><br>
-                    <input type="text" id="ip_address" name="ipadress"><br>
-                    <label for="lname">Username:</label><br>
-                    <input type="text" id="username" name="username">
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="add_contact()">Add contact</button>
-                  </div>
-                </div>      
-              </div>
-            </div>
-          </div>
+            <button type="button" class="addbutton" data-toggle='modal' data-target='#add_bike_dialog'> + Add bike</button>
 
-          <div class="form" method="POST">
-            <input type="text" name="message" placeholder="Type a message..." id="message_input" autocomplete="off" style="background-color: #444444; color:#ffffff;" />
-            <input type="hidden" name="name" value="kokotina>" />
-            <span class="input-group-append" aria-hidden="true" style="background-color: #444444; ">
-              <div class=" input-group-text bg-transparent"><i class="glyphicon glyphicon-send" style="font-size: 25px; padding: 8px; min-width: 50px; color: #3c8dbc; "></i>
-              </div>
-            </span>
-          </div>
+        </section>
 
-      </section>
+      </div>
+
+    <div class="col-sm-3" style="background-color: #222d32; box-sizing: border-box; padding: 0px;"> 
+      <ul style="padding: 0px; list-style: none;">
+        <li class="header" style="text-align: end; padding:20px; height: 55px; font-size: 15px; background-color: #1a2226; color: #4b646f;">Availability in branches</li>
+      </ul>
+
+      <ul id="bike_availability_header" style="list-style: none; padding: 0px;">
+      </ul>
+
+      <table id="bike_availability_table" style="margin-left: 15px; margin-right: 15px; border-left: 1px solid #ffffff; border-right: 1px solid #ffffff">        
+      </table>   
+    
+    </div>
 
     </div>
 
 
-    <footer class="main-footer" style="margin-left: 20%; padding:5px; border: 0; background-color: #222d32; color: #ffffff; opacity: 0.7;">
-      <strong>Copyright &copy; 2020 Matej Drha</strong> All rights reserved.
+    <footer class="main-footer" style="margin-left: 25%; padding:5px; border: 0; background-color: #222d32; color: #ffffff; opacity: 0.7;">
+      <strong>Copyright &copy; 2020 Matej Drha & Simona Zakariasova</strong> All rights reserved.
     </footer>
 
     <div class="control-sidebar-bg"></div>
@@ -389,50 +452,133 @@
   <script>
     var objDiv = document.getElementsByClassName("messenger");
     var last_uuid = '';
-    window.message_id_to_delete = "";
-    window.contact_id_to_delete = "";
+    window.bike_id = "";
+    window.branch_id_to_delete = "";
+    window.bike_price = "";
+    window.bike_name = "";
+    window.bike_brand = "";
+    window.bike_model = "";
 
-    function remove_message(id) {
+    function set_bike_data(){
+      document.getElementById("brand_edit").value = window.bike_brand;
+      document.getElementById("model_edit").value = window.bike_model;
+      document.getElementById("price_edit").value = window.bike_price;
+    }
 
+    function set_count($count){
+      document.getElementById("bike_count").value = $count;
+    }
+
+    function edit_bike(){
       $.ajax({
         type: "POST",
         url: 'restapi.php',
         data: JSON.stringify({
-          action: 'remove_message',
-          id: id
+          action: 'edit_bike',
+          uuid: window.bike_id,
+          brand: $("#brand_edit").val(),
+          price: $("#price_edit").val(),
+          model: $("#model_edit").val()
         }),
         dataType: 'aplication/json'
       }).always(function(data) {
-        getMessages();
+        getBikes();
+        check_bike_availability(window.bike_id);
+      });
+    }
+
+    function change_stock(){      
+      $.ajax({
+        type: "POST",
+        url: 'restapi.php',
+        data: JSON.stringify({
+          action: 'change_bike_count',
+          id: window.bike_id,
+          count: document.getElementById("bike_count").value
+        }),
+        dataType: 'aplication/json'
+      }).always(function(data) {
+        check_bike_availability(window.bike_id);
       });
 
     }
 
-    function remove_contact(id) {
+    function remove_bike() {
+      console.log(window.bike_id);
 
       $.ajax({
         type: "POST",
         url: 'restapi.php',
         data: JSON.stringify({
-          action: 'remove_contact',
+          action: 'remove_bike',
+          id: window.bike_id
+        }),
+        dataType: 'aplication/json'
+      }).always(function(data) {
+        $('#bike_availability_header').html('');
+        $('#bike_availability_table').html('');
+        getBikes();
+      });
+    }
+
+    function check_bike_availability(id) {
+
+      $.ajax({
+        type: "POST",
+        url: 'restapi.php',
+        data: JSON.stringify({
+          action: 'check_bike_availability',
           id: id
         }),
         dataType: 'aplication/json'
       }).always(function(data) {
-        check_contacts();
-      });
+        $('#bike_availability_header').html('');
+        $('#bike_availability_table').html('');
+        try {
+          var obj = JSON.parse(data.responseText);
+          $('#bike_availability_header').append("<li><h2 class='bike_text'>" + window.bike_name + "</h2></li>");
+          $('#bike_availability_header').append("<li><h3 class='bike_price'>Price: " + window.bike_price + " &euro;</h3></li><br><br>");
+          $('#bike_availability_table').append("<tr style='border-top: 1px solid #ffffff; border-bottom: 1px solid #ffffff;'>" +
+            "<td width='66.66%' style='text-align: center; border-left: 1px solid #ffffff; border-right: 1px solid #ffffff;'>" +
+              "<img src='../dist/img/branch1.png' alt='User Image' width='11.4%' height='auto'></td>" +
+            "<td width='23.33%' style='text-align: center;'>" +
+              "<img src='../dist/img/count.png' alt='User Image' width='40%' height='auto'></td>" +
+            "<td style='text-align: center; border-left: 1px solid #ffffff; border-right: 1px solid #ffffff;'>" +
+              "<img src='../dist/img/availability.png' alt='User Image' width='80%' height='auto'></td></tr>");
+          obj.entries.forEach(function f(item, index) {
+            $('#bike_availability_table').append(item);
+          });
+        } catch {
 
+        }
+      });
     }
 
-    function add_contact() {
+    function remove_branch(id) {
 
       $.ajax({
         type: "POST",
         url: 'restapi.php',
         data: JSON.stringify({
-          action: 'add_contact',
+          action: 'remove_branch',
+          id: id
+        }),
+        dataType: 'aplication/json'
+      }).always(function(data) {
+        check_branches();
+      });
+
+    }
+
+    function add_branch() {
+
+      $.ajax({
+        type: "POST",
+        url: 'restapi.php',
+        data: JSON.stringify({
+          action: 'add_branch',
           ip: $("#ip_address").val(),
-          username: $("#username").val()
+          address: $("#address").val()
         }),
         dataType: 'aplication/json'
       }).always(function(data) {
@@ -441,14 +587,14 @@
         if(result == "fail"){
           $("#fail_dialog").modal();
         }
-        check_contacts();
+        check_branches();
       });
 
-}
+    }
 
     setInterval(check_update, 1000);
-    check_contacts();
-    setInterval(check_contacts, 10000);
+    check_branches();
+    setInterval(check_branches, 10000);
 
     function check_update() {
       $.ajax({
@@ -460,65 +606,61 @@
       }).done(
         function(data) {
           if (data != last_uuid && "".localeCompare($("#searchfield").val()) == 0) {
-            getMessages();
+            getBikes();
           }
         });
     }
 
-    function check_contacts(){
+    function check_branches(){
       $.ajax({
         type: "POST",
         url: 'restapi.php',
         data: JSON.stringify({
-          action: 'get_contacts',
+          action: 'get_branches',
         }),
         dataType: 'aplication/json'
       }).always(function(data) {
-        $('.sidebar-menu').html('<li class="header" style="height: 55px; padding: 20px;">Contact list</li>');
+        $('.sidebar-menu').html('<li class="header" style="height: 55px; padding: 20px; font-size: 15px;">Branch list</li>');
         try {
           var obj = JSON.parse(data.responseText);
-          obj.contacts.forEach(function f(item, index) {
+          obj.branches.forEach(function f(item, index) {
             $('.sidebar-menu').append(item);
           });
         } catch {
 
         }
-        $('.sidebar-menu').append('<li><a style="text-align:center;" href="#" data-toggle="modal" data-target="#add_contact_dialog"><span style="padding-right:20px;" >+ Add contact</span></a></li>');
+        $('.sidebar-menu').append('<li><a style="text-align:center; font-size: 20px;" href="#" data-toggle="modal" data-target="#add_branch_dialog"><span style="padding-right:20px;" >+ Add branch</span></a></li>');
       });
     }
 
     $("#searchfield").keyup(function(e) {
-      if (e.keyCode == 13) getMessages($("#searchfield").val());
+      if (e.keyCode == 13) getBikes($("#searchfield").val());
     });
 
-    $("#message_input").keyup(function(e) {
-      if ($("#message_input").val() == '') return;
-      if (e.keyCode == 13) add_message($("#message_input").val());
-    });
-
-    function add_message(message) {
+    function add_bike() {
       $.ajax({
         type: "POST",
         url: 'restapi.php',
         data: JSON.stringify({
-          action: 'add_message',
-          message: message
+          action: 'add_bike',
+          brand: $("#brand").val(),
+          price: $("#price").val(),
+          model: $("#model").val()
         }),
         dataType: 'aplication/json'
       }).always(function(data) {
-        getMessages();
-        $("#message_input").val('');
+        getBikes();
       });
 
     }
 
-    function getMessages(search) {
+    function getBikes(search) {
 
       $.ajax({
         type: "POST",
         url: 'restapi.php',
         data: JSON.stringify({
-          action: 'get_messages',
+          action: 'get_bikes',
           search: search
         }),
         dataType: 'aplication/json'
@@ -527,20 +669,94 @@
         try {
           var obj = JSON.parse(data.responseText);
           last_uuid = obj.last_uuid;
-          $('.nejakaklasa').html(obj.username);
+          $('.nejakaklasa').html(obj.address);
           $('.ip_adress').html("&nbsp;&nbsp;&nbsp;&nbsp|&nbsp;&nbsp;&nbsp;&nbsp" + obj.ip + "&nbsp;&nbsp;&nbsp;&nbsp");
-          name = obj.username;
-          obj.messages.forEach(function f(item, index) {
+          address = obj.address;
+          obj.bikes.forEach(function f(item, index) {
             $('.messenger > ul').append(item);
           });
         } catch {
 
         }
 
-        document.getElementById("message_input").focus();
         objDiv[0].scrollTop = objDiv[0].scrollHeight;
       });
     };
+
+  $('.btn-number').click(function(e){
+    e.preventDefault();
+    
+    fieldName = $(this).attr('data-field');
+    type      = $(this).attr('data-type');
+    var input = $("input[name='"+fieldName+"']");
+    var currentVal = parseInt(input.val());
+    if (!isNaN(currentVal)) {
+        if(type == 'minus') {
+            
+            if(currentVal > input.attr('min')) {
+                input.val(currentVal - 1).change();
+            } 
+            if(parseInt(input.val()) == input.attr('min')) {
+                $(this).attr('disabled', true);
+            }
+
+        } else if(type == 'plus') {
+
+            if(currentVal < input.attr('max')) {
+                input.val(currentVal + 1).change();
+            }
+            if(parseInt(input.val()) == input.attr('max')) {
+                $(this).attr('disabled', true);
+            }
+
+        }
+    } else {
+        input.val(0);
+    }
+  });
+  $('.input-number').focusin(function(){
+    $(this).data('oldValue', $(this).val());
+  });
+  $('.input-number').change(function() {
+      
+      minValue =  parseInt($(this).attr('min'));
+      maxValue =  parseInt($(this).attr('max'));
+      valueCurrent = parseInt($(this).val());
+      
+      name = $(this).attr('name');
+      if(valueCurrent >= minValue) {
+          $(".btn-number[data-type='minus'][data-field='"+name+"']").removeAttr('disabled')
+      } else {
+          alert('Sorry, the minimum value was reached');
+          $(this).val($(this).data('oldValue'));
+      }
+      if(valueCurrent <= maxValue) {
+          $(".btn-number[data-type='plus'][data-field='"+name+"']").removeAttr('disabled')
+      } else {
+          alert('Sorry, the maximum value was reached');
+          $(this).val($(this).data('oldValue'));
+      }
+      
+      
+  });
+  $(".input-number").keydown(function (e) {
+          // Allow: backspace, delete, tab, escape, enter and .
+          if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
+              // Allow: Ctrl+A
+              (e.keyCode == 65 && e.ctrlKey === true) || 
+              // Allow: home, end, left, right
+              (e.keyCode >= 35 && e.keyCode <= 39)) {
+                  // let it happen, don't do anything
+                  return;
+          }
+          // Ensure that it is a number and stop the keypress
+          if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+              e.preventDefault();
+          }
+  });
+
+
+
   </script>
 
 </body>
