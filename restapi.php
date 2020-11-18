@@ -311,26 +311,15 @@ function change_bike_count()
 
     $sql = "UPDATE stock SET in_stock = '$data->count' WHERE bike_uuid='$data->id';";
 
-    get_branches(FALSE);
-    foreach ($branches as $c) {
-        if ($c->online == TRUE) {
-            $conn = open_connection($c->ip);
+    $conn = open_connection("localhost");
 
-            if ($conn->query($sql) === TRUE) {
-                echo "Record edited successfully";
-            } else {
-                echo "Error editing record: " . $conn->error;
-            }
-
-            close_connection($conn);
-        } else {
-            foreach ($branches as $co) {
-                if ($co->online == TRUE) {
-                    update_branches($co->ip, $c, $sql);
-                }
-            }
-        }
+    if ($conn->query($sql) === TRUE) {
+        echo "Record edited successfully";
+    } else {
+        echo "Error editing record: " . $conn->error;
     }
+
+    close_connection($conn);
 }
 
 function check_bike_availability()
@@ -408,6 +397,9 @@ function get_bikes()
     $conn = open_connection("localhost");
 
     global $bikes, $address, $last_uuid, $data, $ip;
+    $array = array();
+
+    $array['bikes'] = array();
 
     $sql = "SELECT * FROM bike";
 
@@ -417,10 +409,10 @@ function get_bikes()
 
     $result = $conn->query($sql);
 
+
     if ($result->num_rows > 0) {
 
         $arr = array();
-        $array = array();
 
         while ($row = $result->fetch_assoc()) {
             $m = new Bike();
@@ -438,13 +430,11 @@ function get_bikes()
         }
 
         $array['bikes'] = $arr;
-        $array['last_uuid'] = $last_uuid;
-        $array['address'] = $address;
-        $array['ip'] = $ip;
-        echo json_encode($array);
-    } else {
-        echo "0 results";
     }
+    $array['last_uuid'] = $last_uuid;
+    $array['address'] = $address;
+    $array['ip'] = $ip;
+    echo json_encode($array);
 
     close_connection($conn);
 }
